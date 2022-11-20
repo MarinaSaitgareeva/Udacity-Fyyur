@@ -1,8 +1,8 @@
 {
   "name": "udacity-fyyur",
   "version": "1.0.0",
-  "description": "Fyyur -----",
-  "main": "index.js",
+  "description": "Fyyur: Artist Booking Site",
+  "main": "app.py",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/MarinaSaitgareeva/Udacity-Fyyur.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Marina Saitgareeva",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/MarinaSaitgareeva/Udacity-Fyyur/issues"
