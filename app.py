@@ -496,17 +496,33 @@ def search_artists():
   # seach for "A" should return "Guns N Petals", "Matt Quevado", and "The Wild Sax Band".
   # search for "band" should return "The Wild Sax Band".
 
-
-
-  response={
-    "count": 1,
-    "data": [{
-      "id": 4,
-      "name": "Guns N Petals",
-      "num_upcoming_shows": 0,
-    }]
+  # Create a variable to store user input data from venue's search form.
+  search_term = request.form.get('search_term', '')
+  # Create variable to store search result from the database (fyyur) based on the user input data from artist's search form.
+  search_result = Venue.query.filter(Artist.name.ilike('%' + search_term + '%')).all()
+  # Create a list variable to store artists from search result.
+  artist_list = []
+  # Iterate over each artist in search result and add then in artist list.
+  for artist in search_result:
+    artist_list.append({
+      'id': artist.id,
+      'name': artist.name
+    })
+  # Crate a dictionary variable to store artists' number and artists' details (id and name) from search result.
+  response = {
+    'count': len(search_result),
+    'data': artist_list
   }
-  return render_template('pages/search_artists.html', results=response, search_term=request.form.get('search_term', ''))
+
+  # response={
+  #   "count": 1,
+  #   "data": [{
+  #     "id": 4,
+  #     "name": "Guns N Petals",
+  #     "num_upcoming_shows": 0,
+  #   }]
+  # }
+  return render_template('pages/search_artists.html', results=response, search_term=search_term)
 
 @app.route('/artists/<int:artist_id>')
 def show_artist(artist_id):
