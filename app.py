@@ -427,7 +427,7 @@ def create_venue_submission():
 
 @app.route('/venues/<venue_id>', methods=['DELETE'])
 def delete_venue(venue_id):
-  # TODO: Complete this endpoint for taking a venue_id, and using
+  # DONE: Complete this endpoint for taking a venue_id, and using
   # SQLAlchemy ORM to delete a record. Handle cases where the session commit could fail.
 
   # Create variable to store the selected venue
@@ -460,14 +460,17 @@ def delete_venue(venue_id):
 
   # BONUS CHALLENGE: Implement a button to delete a Venue on a Venue Page, have it so that
   # clicking that button delete it from the db then redirect the user to the homepage
-  return None
+  # return None
 
 #  Artists
 #  ----------------------------------------------------------------
 @app.route('/artists')
 def artists():
   # DONE: replace with real data returned from querying the database
+
+  # Create a variable to store all artists from the database (fyyur) order by artist's name.
   artists = Artist.query.order_by(Artist.name).all()
+  # Create a variable to store list of id and name for each artists from the database (fyyur).
   data = []
   for artist in artists:
     data.append({
