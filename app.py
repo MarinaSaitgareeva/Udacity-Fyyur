@@ -430,6 +430,34 @@ def delete_venue(venue_id):
   # TODO: Complete this endpoint for taking a venue_id, and using
   # SQLAlchemy ORM to delete a record. Handle cases where the session commit could fail.
 
+  # Create variable to store the selected venue
+  venue = Venue.query.get(venue_id)
+  venue_name = venue.name
+  # Check if there is the selected venue in the database (fyyur). If not, redirect to home page, otherwise continue to delete this venue.
+  if not venue:
+    # User somehow faked this call, redirect home
+    return redirect(url_for('index'))
+  else:
+    error_on_delete = False
+    try:
+      db.session.delete(venue)
+      db.session.commit()
+      flash('Venue has been deleted successfully!')
+    except:
+      error_on_delete = True
+      flash('Something went wrong, venue could not be deleted.')
+      db.session.rollback()
+    finally:
+      db.session.close()
+    if error_on_delete:
+      flash(f'An error occurred deleting venue {venue_name}.')
+      abort(500)
+    else:
+      return jsonify({
+        'deleted': True,
+        'url': url_for('venues')
+        })
+
   # BONUS CHALLENGE: Implement a button to delete a Venue on a Venue Page, have it so that
   # clicking that button delete it from the db then redirect the user to the homepage
   return None
