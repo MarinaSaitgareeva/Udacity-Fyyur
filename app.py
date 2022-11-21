@@ -13,7 +13,7 @@ from logging import Formatter, FileHandler
 from flask_wtf import Form
 from forms import *
 from flask_migrate import Migrate
-from sqlalchemy import Column, String, Integer, DateTime, Boolean, ARRAY, ForeignKey
+from sqlalchemy import Column, String, Integer, DateTime, Boolean, ARRAY, ForeignKey, desc
 from operator import itemgetter
 
 #----------------------------------------------------------------------------#
@@ -116,7 +116,15 @@ app.jinja_env.filters['datetime'] = format_datetime
 
 @app.route('/')
 def index():
-  return render_template('pages/home.html')
+  recent_artists = []
+  recent_venues = []
+  artists_data = Artist.query.order_by(desc(Artist.id)).limit(10).all()
+  venues_data = Venue.query.order_by(desc(Venue.id)).limit(10).all()
+  for artist in artists_data:
+    recent_artists.append({'id': artist.id, 'name': artist.name})
+  for venue in venues_data:
+    recent_venues.append({'id': venue.id, 'name': venue.name})
+  return render_template('pages/home.html', artists=recent_artists, venues=recent_venues)
 
 
 #  Venues
