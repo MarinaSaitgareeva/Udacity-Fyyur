@@ -228,7 +228,7 @@ class ArtistForm(Form):
         ]
     )
     facebook_link = StringField(
-        # TODO implement enum restriction
+        # DONE implement enum restriction
         'facebook_link', validators=[Optional(), URL()]
     )
 
