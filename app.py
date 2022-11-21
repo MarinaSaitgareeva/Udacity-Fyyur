@@ -400,22 +400,25 @@ def create_venue_submission():
     return redirect(url_for('create_venue_submission'))
   else:
     error_in_insert = False
-    # Insert form fields into the database (fyyur)
+
     try:
       # Create the new venue with all fields
       new_venue = Venue(name=name, city=city, state=state, address=address, phone=phone, genres=genres, facebook_link=facebook_link, image_link=image_link, website=website, seeking_talent=seeking_talent, seeking_description=seeking_description)
       db.session.add(new_venue)
       db.session.commit()
+
     except:
       error_in_insert = True
       db.session.rollback()
       flash('An error occurred. Venue could not be listed.')
+
     finally:
       db.session.close()
+
     if not error_in_insert:
       # on successful db insert, flash success
       flash('Venue ' + request.form['name'] + ' was successfully listed!')
-      return redirect(url_for('index'))
+      return redirect(url_for('venues'))
     # DONE: on unsuccessful db insert, flash an error instead.
     # e.g., flash('An error occurred. Venue ' + data.name + ' could not be listed.')
     # see: http://flask.pocoo.org/docs/1.0/patterns/flashing/
@@ -798,7 +801,7 @@ def edit_venue(venue_id):
 
 @app.route('/venues/<int:venue_id>/edit', methods=['POST'])
 def edit_venue_submission(venue_id):
-  # TODO: take values from the form submitted, and update existing
+  # DONE: take values from the form submitted, and update existing
   # venue record with ID <venue_id> using the new attributes
   form = VenueForm()
   # Check if the Venue Form is valid. If not, redirect to edit_venue_submission page, otherwise updated data for the selected venue.
@@ -855,14 +858,55 @@ def create_artist_form():
 @app.route('/artists/create', methods=['POST'])
 def create_artist_submission():
   # called upon submitting the new artist listing form
-  # TODO: insert form data as a new Venue record in the db, instead
-  # TODO: modify data to be the data object returned from db insertion
+  # DONE: insert form data as a new Venue record in the db, instead
+  # DONE: modify data to be the data object returned from db insertion
 
-  # on successful db insert, flash success
-  flash('Artist ' + request.form['name'] + ' was successfully listed!')
-  # TODO: on unsuccessful db insert, flash an error instead.
+  # Create a variable to store venue create form.
+  form = ArtistForm()
+  # Create variables to store venue create form fields.
+  name = form.name.data
+  city = form.city.data
+  state = form.state.data
+  phone = form.phone.data
+  genres = form.genres.data
+  facebook_link = form.facebook_link.data
+  image_link = form.image_link.data
+  website = form.website_link.data
+  seeking_venue = True if form.seeking_venue.data == 'Yes' else False
+  seeking_description = form.seeking_description.data
+
+  # Redirect back to form if errors in form validation
+  if not form.validate():
+    flash(form.errors)
+    return redirect(url_for('create_artist_submission'))
+  else:
+    error_in_insert = False
+
+    try:
+      # Create the new venue with all fields
+      new_artist = Artist(name=name, city=city, state=state, phone=phone, genres=genres, facebook_link=facebook_link, image_link=image_link, website=website, seeking_venue=seeking_venue, seeking_description=seeking_description)
+      db.session.add(new_artist)
+      db.session.commit()
+
+    except:
+      error_in_insert = True
+      db.session.rollback()
+      flash('An error occurred. Artist could not be listed.')
+
+    finally:
+      db.session.close()
+
+    if not error_in_insert:
+      # on successful db insert, flash success
+      flash('Artist ' + request.form['name'] + ' was successfully listed!')
+      return redirect(url_for('artists'))
+  # DONE: on unsuccessful db insert, flash an error instead.
   # e.g., flash('An error occurred. Artist ' + data.name + ' could not be listed.')
-  return render_template('pages/home.html')
+    else:
+      flash('An error occurred. Artist ' + name + ' could not be listed.')
+      abort(500)
+
+  # return render_template('pages/home.html')
 
 
 #  Shows
