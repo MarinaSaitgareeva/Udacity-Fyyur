@@ -121,11 +121,7 @@ class VenueForm(Form):
     )
 
     seeking_talent = BooleanField( 
-        'seeking_talent', validators=[DataRequired()],
-        choices=[
-            ('Yes', 'Yes'),
-            ('No', 'No')
-        ] 
+        'seeking_talent', validators=[Optional()]
     )
 
     seeking_description = StringField(
@@ -237,14 +233,10 @@ class ArtistForm(Form):
     )
 
     seeking_venue = BooleanField( 
-        'seeking_venue', validators=[DataRequired()],
-        choices=[
-            ('Yes', 'Yes'),
-            ('No', 'No')
-        ]
+        'seeking_venue', validators=[Optional()],
     )
 
     seeking_description = StringField(
-            'seeking_description', validators=[Optional()]
+        'seeking_description', validators=[Optional()]
     )
 
