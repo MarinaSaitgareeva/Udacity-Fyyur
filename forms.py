@@ -5,10 +5,12 @@ from wtforms.validators import DataRequired, AnyOf, URL, Optional
 
 class ShowForm(Form):
     artist_id = StringField(
-        'artist_id'
+        'artist_id',
+        validators=[DataRequired()]
     )
     venue_id = StringField(
-        'venue_id'
+        'venue_id',
+        validators=[DataRequired()]
     )
     start_time = DateTimeField(
         'start_time',
@@ -18,13 +20,16 @@ class ShowForm(Form):
 
 class VenueForm(Form):
     name = StringField(
-        'name', validators=[DataRequired()]
+        'name',
+        validators=[DataRequired()]
     )
     city = StringField(
-        'city', validators=[DataRequired()]
+        'city',
+        validators=[DataRequired()]
     )
     state = SelectField(
-        'state', validators=[DataRequired()],
+        'state', 
+        validators=[DataRequired()],
         choices=[
             ('AL', 'AL'),
             ('AK', 'AK'),
@@ -80,17 +85,21 @@ class VenueForm(Form):
         ]
     )
     address = StringField(
-        'address', validators=[DataRequired()]
+        'address',
+        validators=[DataRequired()]
     )
     phone = StringField(
-        'phone', validators=[DataRequired()]
+        'phone',
+        validators=[DataRequired()]
     )
     image_link = StringField(
-        'image_link', validators=[Optional(), URL()]
+        'image_link',
+        validators=[Optional(), URL()]
     )
     genres = SelectMultipleField(
         # DONE implement enum restriction
-        'genres', validators=[DataRequired()],
+        'genres',
+        validators=[DataRequired()],
         choices=[
             ('Alternative', 'Alternative'),
             ('Blues', 'Blues'),
@@ -114,31 +123,38 @@ class VenueForm(Form):
         ]
     )
     facebook_link = StringField(
-        'facebook_link', validators=[Optional(), URL()]
+        'facebook_link',
+        validators=[Optional(), URL()]
     )
     website_link = StringField(
-        'website_link', validators=[Optional(), URL()]
+        'website_link',
+        validators=[Optional(), URL()]
     )
 
     seeking_talent = BooleanField( 
-        'seeking_talent', validators=[Optional()]
+        'seeking_talent',
+        validators=[Optional()]
     )
 
     seeking_description = StringField(
-        'seeking_description', validators=[Optional()]
+        'seeking_description',
+        validators=[Optional()]
     )
 
 
 
 class ArtistForm(Form):
     name = StringField(
-        'name', validators=[DataRequired()]
+        'name',
+        validators=[DataRequired()]
     )
     city = StringField(
-        'city', validators=[DataRequired()]
+        'city',
+        validators=[DataRequired()]
     )
     state = SelectField(
-        'state', validators=[DataRequired()],
+        'state',
+        validators=[DataRequired()],
         choices=[
             ('AL', 'AL'),
             ('AK', 'AK'),
@@ -194,13 +210,16 @@ class ArtistForm(Form):
         ]
     )
     phone = StringField(
-        'phone', validators=[DataRequired()]
+        'phone',
+        validators=[DataRequired()]
     )
     image_link = StringField(
-        'image_link', validators=[Optional(), URL()]
+        'image_link',
+        validators=[Optional(), URL()]
     )
     genres = SelectMultipleField(
-        'genres', validators=[DataRequired()],
+        'genres',
+        validators=[DataRequired()],
         choices=[
             ('Alternative', 'Alternative'),
             ('Blues', 'Blues'),
@@ -225,18 +244,22 @@ class ArtistForm(Form):
     )
     facebook_link = StringField(
         # DONE implement enum restriction
-        'facebook_link', validators=[Optional(), URL()]
+        'facebook_link',
+        validators=[Optional(), URL()]
     )
 
     website_link = StringField(
-        'website_link', validators=[Optional(), URL()]
+        'website_link',
+        validators=[Optional(), URL()]
     )
 
     seeking_venue = BooleanField( 
-        'seeking_venue', validators=[Optional()],
+        'seeking_venue',
+        validators=[Optional()],
     )
 
     seeking_description = StringField(
-        'seeking_description', validators=[Optional()]
+        'seeking_description',
+        validators=[Optional()]
     )
 
