@@ -995,6 +995,8 @@ def create_show_submission():
   except:
     db.session.rollback()
     flash('An error occurred. Show could not be listed.')
+    print(sys.exc_info())
+    return redirect(url_for('create_show_submission'))
   finally:
     db.session.close()
     return redirect(url_for('shows'))
