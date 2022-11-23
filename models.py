@@ -1,21 +1,21 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from sqlalchemy import Column, String, Integer, DateTime, Boolean, ARRAY, ForeignKey
+from sqlalchemy import (
+  Column,
+  String,
+  Integer,
+  Text,
+  DateTime,
+  Boolean,
+  ARRAY,
+  ForeignKey)
 from datetime import datetime
 
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
 
+# Initialized without explicit app (Flask instance)
 db = SQLAlchemy()
-# DONE: connect to a local postgresql databas
-def db_setup(app):
-  app.config.from_object('config')
-  db.app = app
-  db.init_app(app)
-  migrate = Migrate(app, db, render_as_batch=False)
-  return db
-
 
 #----------------------------------------------------------------------------#
 # Models.
@@ -37,10 +37,15 @@ class Venue(db.Model):
   website = Column(String(120))
   genres = Column(ARRAY(String()), nullable=False)
   seeking_talent = Column(Boolean, default=False)
-  seeking_description = Column(String(120))
+  seeking_description = Column(Text)
 
   # Venue is the parent (one-to-many) of a Show
-  shows = db.relationship('Show', backref='venue', lazy=True)
+  shows = db.relationship(
+    'Show',
+    backref='venue',
+    lazy='joined',
+    cascade='all, delete'
+  )
   # Can reference show.venue (as well as venue.shows)
 
   def __repr__(self):
@@ -61,10 +66,15 @@ class Artist(db.Model):
   website = Column(String(120))
   genres = Column(ARRAY(String()), nullable=False)
   seeking_venue = Column(Boolean, default=False)
-  seeking_description = Column(String(120))
+  seeking_description = Column(Text)
 
   # Artist is the parent (one-to-many) of a Show
-  shows = db.relationship('Show', backref='artist', lazy=True)
+  shows = db.relationship(
+    'Show',
+    backref='artist',
+    lazy='joined,
+    cascade='all, delete'
+  )
   # Can reference show.artist (as well as artist.shows)
 
   def __repr__(self):
