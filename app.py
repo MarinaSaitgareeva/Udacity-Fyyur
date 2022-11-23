@@ -536,10 +536,10 @@ def edit_venue_submission(venue_id):
       venue.seeking_description = form.seeking_description.data
       venue.image_link = form.image_link.data
       db.session.commit()
-      flash('Venue ' + request.form['name'] + ' was updated successfully!' )
+      flash('Venue ' + form.name.data + ' was updated successfully!' )
     except:
       db.session.rollback()
-      flash('An error occurred. Venue ' + request.form['name'] + ' could not be updated.')
+      flash('An error occurred. Venue ' + form.name.data + ' could not be updated.')
       abort(500)
     finally:
       db.session.close()
@@ -893,10 +893,10 @@ def edit_artist_submission(artist_id):
       artist.seeking_description = form.seeking_description.data
       artist.image_link = form.image_link.data
       db.session.commit()
-      flash('Artist ' + request.form['name'] + ' was updated successfully!' )
+      flash('Artist ' + form.name.data + ' was updated successfully!' )
     except:
       db.session.rollback()
-      flash('An error occurred. Artist ' + request.form['name'] + ' could not be updated.')
+      flash('An error occurred. Artist ' + form.name.data + ' could not be updated.')
       abort(500)
     finally:
       db.session.close()
