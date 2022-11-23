@@ -83,4 +83,4 @@ class Show(db.Model):
   venue_id = Column(Integer, ForeignKey('Venue.id'), nullable=False)
 
   def __repr__(self):
-    return f'Show {self.id} {self.start_time} artist_id={artist_id} venue_id={venue_id}'
+    return f'Show {self.id} {self.start_time} artist_id={self.artist_id} venue_id={self.venue_id}'
