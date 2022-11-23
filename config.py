@@ -9,4 +9,4 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 # Connect to the database
 # DONE IMPLEMENT DATABASE URL
-SQLALCHEMY_DATABASE_URI = 'postgresql://postgres@localhost:5432/fyyur'
+SQLALCHEMY_DATABASE_URI = 'postgresql://marinas:2001@localhost/fyyur'

@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from sqlalchemy import Column, String, Integer, DateTime, Boolean, ARRAY, ForeignKey, desc
+from sqlalchemy import Column, String, Integer, DateTime, Boolean, ARRAY, ForeignKey
 from datetime import datetime
 
 #----------------------------------------------------------------------------#
@@ -25,17 +25,17 @@ class Venue(db.Model):
   __tablename__ = 'Venue'
 
   id = Column(Integer, primary_key=True)
-  name = Column(String)
-  city = Column(String(120))
-  state = Column(String(120))
-  address = Column(String(120))
-  phone = Column(String(120))
+  name = Column(String, nullable=False)
+  city = Column(String(120), nullable=False)
+  state = Column(String(120), nullable=False)
+  address = Column(String(120), nullable=False)
+  phone = Column(String(120), nullable=False)
   image_link = Column(String(500))
   facebook_link = Column(String(120))
 
   # DONE: implement any missing fields, as a database migration using Flask-Migrate
   website = Column(String(120))
-  genres = Column(ARRAY(String(120)))
+  genres = Column(ARRAY(String()), nullable=False)
   seeking_talent = Column(Boolean, default=False)
   seeking_description = Column(String(120))
 
@@ -50,17 +50,16 @@ class Artist(db.Model):
   __tablename__ = 'Artist'
 
   id = Column(Integer, primary_key=True)
-  name = Column(String)
-  genres = Column(ARRAY(String(120)))
-  city = Column(String(120))
-  state = Column(String(120))
-  phone = Column(String(120))
+  name = Column(String, nullable=False)
+  city = Column(String(120), nullable=False)
+  state = Column(String(120), nullable=False)
+  phone = Column(String(120), nullable=False)
   image_link = Column(String(500))
   facebook_link = Column(String(120))
 
   # DONE: implement any missing fields, as a database migration using Flask-Migrate
   website = Column(String(120))
-
+  genres = Column(ARRAY(String()), nullable=False)
   seeking_venue = Column(Boolean, default=False)
   seeking_description = Column(String(120))
 
