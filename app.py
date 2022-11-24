@@ -10,9 +10,7 @@ from flask import (
   request,
   flash,
   redirect,
-  url_for,
-  jsonify,
-  abort)
+  url_for)
 from flask_moment import Moment
 from flask_migrate import Migrate 
 import logging
@@ -21,7 +19,6 @@ from forms import *
 from sqlalchemy import desc
 from models import db, Venue, Artist, Show
 from datetime import datetime
-import sys
 
 #----------------------------------------------------------------------------#
 # App Config.
