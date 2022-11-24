@@ -72,7 +72,7 @@ class Artist(db.Model):
   shows = db.relationship(
     'Show',
     backref='artist',
-    lazy='joined,
+    lazy='joined',
     cascade='all, delete'
   )
   # Can reference show.artist (as well as artist.shows)
