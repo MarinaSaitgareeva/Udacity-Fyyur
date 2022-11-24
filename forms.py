@@ -6,9 +6,9 @@ from wtforms import (
   SelectField,
   SelectMultipleField,
   DateTimeField,
-  BooleanField
+  BooleanField,
 )
-from wtforms.fields.html5 import TelField
+from wtforms.fields import TelField
 from wtforms.validators import (
   DataRequired,
   URL,
